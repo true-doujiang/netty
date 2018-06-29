@@ -1,5 +1,7 @@
 package com.yhh.nio;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.Pipe;
@@ -11,7 +13,8 @@ import java.nio.channels.Pipe;
  */
 public class TestPipe {
 
-    public static void main(String[] args) throws IOException {
+    @Test
+    public void test1() throws IOException {
         //1. 获取管道
         Pipe pipe = Pipe.open();
 
@@ -33,4 +36,5 @@ public class TestPipe {
         sourceChannel.close();
         sinkChannel.close();
     }
+
 }

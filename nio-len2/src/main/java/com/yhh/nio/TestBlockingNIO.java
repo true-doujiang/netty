@@ -1,5 +1,7 @@
 package com.yhh.nio;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -37,12 +39,9 @@ import java.nio.file.StandardOpenOption;
 public class TestBlockingNIO {
 
 
-    public static void main(String[] args) {
-
-    }
-
 
     //客户端
+    @Test
     public void client() throws IOException {
         FileChannel inChannel = FileChannel.open(Paths.get("1.jpg"), StandardOpenOption.READ);
 
@@ -62,6 +61,7 @@ public class TestBlockingNIO {
     }
 
     //服务端
+    @Test
     public void server() throws IOException{
         FileChannel outChannel = FileChannel.open(Paths.get("2.jpg"), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
 

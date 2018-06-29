@@ -1,5 +1,7 @@
 package com.yhh.nio;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -20,10 +22,7 @@ import java.util.Scanner;
 public class TestNonBlockingNIO2 {
 
 
-	public static void main(String[] args) {
-
-	}
-
+	@Test
 	public void send() throws IOException{
 		DatagramChannel dc = DatagramChannel.open();
 		
@@ -43,7 +42,8 @@ public class TestNonBlockingNIO2 {
 		
 		dc.close();
 	}
-	
+
+	@Test
 	public void receive() throws IOException{
 		DatagramChannel dc = DatagramChannel.open();
 		

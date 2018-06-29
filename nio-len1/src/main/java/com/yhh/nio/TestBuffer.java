@@ -1,5 +1,7 @@
 package com.yhh.nio;
 
+import org.junit.Test;
+
 import java.nio.ByteBuffer;
 
 /**
@@ -40,13 +42,9 @@ import java.nio.ByteBuffer;
  */
 public class TestBuffer {
 
-    public static void main(String[] args) {
-        f1();
-        //f2();
-        //f3();
-    }
 
-    public static void f1() {
+    @Test
+    public void f1() {
         String str = "abcde";
 
         //1. 分配一个指定大小的缓冲区
@@ -113,7 +111,8 @@ public class TestBuffer {
         System.out.println((char)buf.get());
     }
 
-    public static void f2() {
+    @Test
+    public void f2() {
         String str = "abcde";
 
         ByteBuffer buf = ByteBuffer.allocate(1024);
@@ -146,7 +145,8 @@ public class TestBuffer {
         }
     }
 
-    public static void f3() {
+    @Test
+    public void f3() {
         //分配直接缓冲区
         ByteBuffer buf = ByteBuffer.allocateDirect(1024);
         System.out.println(buf.isDirect());

@@ -1,5 +1,6 @@
 package com.yhh.nio;
 
+import org.junit.Test;
 import sun.nio.ch.FileChannelImpl;
 
 import java.io.*;
@@ -63,18 +64,11 @@ import java.util.Set;
  */
 public class TestChannel {
 
-    public static void main(String[] args) throws IOException {
-        //f1();
-        //f2();
-        //f3();
-        //f4();
-        //f5();
-        f6();
-    }
 
 
     //利用通道完成文件的复制（非直接缓冲区）
-    public static void f1() {
+    @Test
+    public void test1() {
         long start = System.currentTimeMillis();
 
         FileInputStream fis = null;
@@ -141,7 +135,8 @@ public class TestChannel {
     }
 
     //使用 "直接缓冲区（物理内存、慎用）" 完成文件的复制(内存映射文件)
-    public static void f2() throws IOException{//2127-1902-1777{
+    @Test
+    public void test2() throws IOException{//2127-1902-1777{
         long start = System.currentTimeMillis();
 
         //直接获取通道、不用流了
@@ -167,7 +162,8 @@ public class TestChannel {
     }
 
     //"通道" 之间的数据传输(直接缓冲区???)
-    public static void f3() throws IOException {
+    @Test
+    public void test3() throws IOException {
         FileChannel inChannel = FileChannel.open(Paths.get("/Users/huanhuanyou/dianda/netty/f1.md"), StandardOpenOption.READ);
         FileChannel outChannel = FileChannel.open(Paths.get("/Users/huanhuanyou/dianda/netty/f2.md"), StandardOpenOption.READ, StandardOpenOption.WRITE, StandardOpenOption.CREATE);
 
@@ -180,7 +176,8 @@ public class TestChannel {
     }
 
     //分散和聚集
-    public static void f4() throws IOException {
+    @Test
+    public void f4() throws IOException {
         RandomAccessFile raf1 = new RandomAccessFile("/Users/huanhuanyou/dianda/netty/f1.md", "rw");
         //1. 获取通道
         FileChannel channel1 = raf1.getChannel();
@@ -206,7 +203,8 @@ public class TestChannel {
         channel2.write(bufs);
     }
 
-    public static void f5() {
+    @Test
+    public void f5() {
         Map<String, Charset> map = Charset.availableCharsets();
         Set<Map.Entry<String, Charset>> entries = map.entrySet();
         for (Map.Entry<String, Charset> entry : entries) {
@@ -215,7 +213,8 @@ public class TestChannel {
     }
 
     //字符集
-    public static void f6() throws CharacterCodingException {
+    @Test
+    public void f6() throws CharacterCodingException {
         Charset cs1 = Charset.forName("GBK");
 
         //获取编码器

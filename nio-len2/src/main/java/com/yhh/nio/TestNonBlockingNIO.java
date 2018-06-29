@@ -1,5 +1,7 @@
 package com.yhh.nio;
 
+import org.junit.Test;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -49,6 +51,7 @@ public class TestNonBlockingNIO {
 	}
 
 	//客户端
+	@Test
 	public void client() throws IOException{
 		//1. 获取通道
 		SocketChannel sChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 9898));
@@ -74,6 +77,7 @@ public class TestNonBlockingNIO {
 	}
 
 	//服务端
+	@Test
 	public void server() throws IOException{
 		//1. 获取通道
 		ServerSocketChannel ssChannel = ServerSocketChannel.open();
