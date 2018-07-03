@@ -13,6 +13,9 @@ import java.nio.channels.Pipe;
  */
 public class TestPipe {
 
+    //不同线程之间交换数据
+
+
     @Test
     public void test1() throws IOException {
         //1. 获取管道

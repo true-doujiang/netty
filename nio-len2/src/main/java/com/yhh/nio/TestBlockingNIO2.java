@@ -19,6 +19,10 @@ import java.nio.file.StandardOpenOption;
 public class TestBlockingNIO2 {
 
 
+	/**
+	 * 现在还是阻塞式的
+	 */
+
 
 	//客户端
 	@Test
@@ -32,11 +36,13 @@ public class TestBlockingNIO2 {
 			sChannel.write(buf);
 			buf.clear();
 		}
+
+		//用这种方式告诉服务端，客户端数据已发送完毕
 		//否则服务端一直阻塞  server不知道client数据有没有发送完毕
 		sChannel.shutdownOutput();
 		
 		//接收服务端的反馈
-		int len = 0;
+		int len = 0; //实际读取到的字节数
 		while((len = sChannel.read(buf)) != -1){
 			buf.flip();
 			System.out.println(new String(buf.array(), 0, len));

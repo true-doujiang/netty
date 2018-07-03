@@ -15,6 +15,9 @@
  */
 package com.phei.netty.bio;
 
+import sun.net.TelnetInputStream;
+
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -41,6 +44,8 @@ public class TimeServer {
                 // 采用默认值
             }
         }
+        //FileOutputStream
+        //TelnetInputStream
 
         ServerSocket server = null;
         try {

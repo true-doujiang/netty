@@ -22,6 +22,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -50,10 +51,10 @@ public class MultiplexerTimeServer implements Runnable {
 			servChannel.configureBlocking(false);
 			servChannel.socket().bind(new InetSocketAddress(port), 1024);
 			servChannel.register(selector, SelectionKey.OP_ACCEPT);
-			System.out.println("The time server is start in port : " + port);
+			System.out.println(Thread.currentThread().getName() + " The time server is start in port : " + port);
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.exit(1);
+			System.exit(1); //如果失败对出进程
 		}
 	}
 
@@ -61,16 +62,14 @@ public class MultiplexerTimeServer implements Runnable {
 		this.stop = true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Runnable#run()
-	 */
 	@Override
 	public void run() {
+		System.out.println(Thread.currentThread().getName() + "=====run======");
 		while (!stop) {
 			try {
-				selector.select(1000);
+				System.out.println(Thread.currentThread().getName() + "=====run while======" + new Date().getSeconds());
+
+				selector.select(1000);//select每隔1s唤醒一次
 				Set<SelectionKey> selectedKeys = selector.selectedKeys();
 				Iterator<SelectionKey> it = selectedKeys.iterator();
 				SelectionKey key = null;
@@ -94,19 +93,21 @@ public class MultiplexerTimeServer implements Runnable {
 		}
 
 		// 多路复用器关闭后，所有注册在上面的Channel和Pipe等资源都会被自动去注册并关闭，所以不需要重复释放资源
-		if (selector != null)
+		if (selector != null) {
 			try {
 				selector.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
 	}
 
-	private void handleInput(SelectionKey key) throws IOException {
-
+	private void handleInput(SelectionKey key) throws IOException, InterruptedException {
 		if (key.isValid()) {
 			// 处理新接入的请求消息
 			if (key.isAcceptable()) {
+				System.out.println(Thread.currentThread().getName() + "=====isAcceptable======");
+
 				// Accept the new connection
 				ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
 				SocketChannel sc = ssc.accept();
@@ -114,12 +115,16 @@ public class MultiplexerTimeServer implements Runnable {
 				// Add the new connection to the selector
 				sc.register(selector, SelectionKey.OP_READ);
 			}
+
 			if (key.isReadable()) {
+				System.out.println(Thread.currentThread().getName() + "=====isReadable======");
+
 				// Read the data
 				SocketChannel sc = (SocketChannel) key.channel();
-				ByteBuffer readBuffer = ByteBuffer.allocate(1024);
+				ByteBuffer readBuffer = ByteBuffer.allocate(1024);//1MB
 				int readBytes = sc.read(readBuffer);
 				if (readBytes > 0) {
+					System.out.println(Thread.currentThread().getName() + "=====readBytes====== " + readBytes);
 					readBuffer.flip();
 					byte[] bytes = new byte[readBuffer.remaining()];
 					readBuffer.get(bytes);
@@ -128,18 +133,23 @@ public class MultiplexerTimeServer implements Runnable {
 					String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(body) ? new java.util.Date(System.currentTimeMillis()).toString() : "BAD ORDER";
 					doWrite(sc, currentTime);
 				} else if (readBytes < 0) {
+					System.out.println(Thread.currentThread().getName() + "=====对端链路关闭======");
 					// 对端链路关闭
 					key.cancel();
 					sc.close();
 				} else {
+					System.out.println(Thread.currentThread().getName() + "=====读到0字节，忽略======");
 					; // 读到0字节，忽略
 				}
 			}
+		} else {
+			System.out.println(Thread.currentThread().getName() + "=====Selectionkey false======");
 		}
 	}
 
 	private void doWrite(SocketChannel channel, String response) throws IOException {
 		if (response != null && response.trim().length() > 0) {
+			System.out.println(Thread.currentThread().getName() + "=====doWrite======" + response);
 			byte[] bytes = response.getBytes();
 			ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
 			writeBuffer.put(bytes);

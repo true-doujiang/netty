@@ -22,6 +22,12 @@ import java.util.Scanner;
 public class TestNonBlockingNIO2 {
 
 
+
+	/**
+	 * 非阻塞式的
+	 */
+
+
 	@Test
 	public void send() throws IOException{
 		DatagramChannel dc = DatagramChannel.open();
