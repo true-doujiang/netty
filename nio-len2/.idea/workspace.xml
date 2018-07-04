@@ -103,8 +103,8 @@
       <file leaf-file-name="TestPipe.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yhh/nio/TestPipe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="598">
+              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
         </entry>
@@ -173,10 +173,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="-227" />
-    <option name="y" value="-1080" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -400,7 +398,7 @@
       <workItem from="1530288951272" duration="2732000" />
       <workItem from="1530324374088" duration="6483000" />
       <workItem from="1530546526846" duration="336000" />
-      <workItem from="1530580859554" duration="2330000" />
+      <workItem from="1530580859554" duration="3322000" />
     </task>
     <servers />
   </component>
@@ -437,22 +435,23 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18531000" />
+    <option name="totallyTimeSpent" value="19523000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-227" y="-1080" width="1920" height="1080" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="6" visible="true" weight="0.09531417" />
+      <window_info anchor="right" id="Maven Projects" order="6" visible="true" weight="0.12804006" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.40727273" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Designer" order="1" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4991708" visible="true" weight="0.15015975" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4991708" visible="true" weight="0.20171674" />
       <window_info anchor="bottom" id="Statistic" order="7" />
       <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="right" id="Structure" order="8" sideWeight="0.50082916" side_tool="true" weight="0.15379113" />
@@ -881,8 +880,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yhh/nio/TestPipe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="598">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
         </state>
       </provider>
     </entry>
