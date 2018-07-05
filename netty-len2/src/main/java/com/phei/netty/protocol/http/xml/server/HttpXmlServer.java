@@ -73,6 +73,7 @@ public class HttpXmlServer {
                     });
 
             ChannelFuture future = b.bind(new InetSocketAddress(port)).sync();
+
             System.out.println("HTTP订购服务器启动，网址是 : " + "http://localhost:" + port);
             future.channel().closeFuture().sync();
         } finally {

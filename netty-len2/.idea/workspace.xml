@@ -13,99 +13,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AbstractHttpXmlDecoder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/codec/AbstractHttpXmlDecoder.java">
+      <file leaf-file-name="MarshallingCodecFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/netty/codec/MarshallingCodecFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+            <state relative-caret-position="345">
+              <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Address.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/pojo/Address.java">
+      <file leaf-file-name="WebSocketServerHandler.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/websocket/server/WebSocketServerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-646">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Customer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/pojo/Customer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Order.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/pojo/Order.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrderFactory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/pojo/OrderFactory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="35" selection-start-line="35" selection-end-line="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Shipping.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/pojo/Shipping.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HttpXmlServer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/server/HttpXmlServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1012">
-              <caret line="73" selection-start-line="73" selection-end-line="73" />
+            <state relative-caret-position="414">
+              <caret line="65" column="13" lean-forward="true" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
               <folding>
-                <element signature="e#1842#3041#0" expanded="true" />
-                <element signature="e#3040#3041#0" expanded="true" />
+                <element signature="e#0#5102#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HttpXmlServerHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/server/HttpXmlServerHandler.java">
+      <file leaf-file-name="WebSocketServer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/websocket/server/WebSocketServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="47" column="13" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestOrder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/TestOrder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="46" column="10" selection-start-line="46" selection-start-column="10" selection-end-line="46" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MessageType.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/netty/MessageType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="28" column="23" lean-forward="true" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+            <state relative-caret-position="575">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
               <folding>
-                <element signature="e#1030#1031#0" expanded="true" />
-                <element signature="e#1056#1057#0" expanded="true" />
+                <element signature="e#1839#2303#0" expanded="true" />
+                <element signature="e#2302#2303#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,6 +55,7 @@
       <find>for( int i=0</find>
       <find>释放资源</find>
       <find>UserInfo</find>
+      <find>webso</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/file</dir>
@@ -127,8 +64,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/aio/TimeServer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/aio/TimeClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/aio/ReadCompletionHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/aio/AsyncTimeServerHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/aio/AsyncTimeClientHandler.java" />
@@ -170,14 +105,16 @@
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/codec/protobuf/SubReqClientHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/codec/protobuf/SubReqServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/codec/protobuf/SubReqServerHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/fileServer/HttpFileServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/fileServer/HttpFileServerHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/client/HttpXmlClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/client/HttpXmlClientHandle.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/server/HttpXmlServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/TestOrder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/pojo/OrderFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/netty/MessageType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/fileServer/HttpFileServer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/server/HttpXmlServer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/websocket/server/WebSocketServer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/websocket/server/WebSocketServerHandler.java" />
       </list>
     </option>
   </component>
@@ -219,12 +156,13 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1440" />
     <option name="height" value="900" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
+      <autoscrollFromSource ProjectPane="true" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -384,6 +322,27 @@
               <item name="netty" type="462c0819:PsiDirectoryNode" />
               <item name="codec" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="netty-len2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="netty-len2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="netty" type="462c0819:PsiDirectoryNode" />
+              <item name="protocol" type="462c0819:PsiDirectoryNode" />
+              <item name="netty" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="netty-len2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="netty-len2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="netty" type="462c0819:PsiDirectoryNode" />
+              <item name="protocol" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -416,7 +375,18 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.PerformTestUserInfo">
+  <component name="RunManager" selected="Application.HttpFileServer">
+    <configuration name="HttpFileServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.phei.netty.protocol.http.fileServer.HttpFileServer" />
+      <module name="netty-len2" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.phei.netty.protocol.http.fileServer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+    </configuration>
     <configuration name="PerformTestUserInfo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.phei.netty.codec.serializable.PerformTestUserInfo" />
       <module name="netty-len2" />
@@ -457,17 +427,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.phei.netty.frame.fault.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-    </configuration>
-    <configuration name="TimeServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.phei.netty.basic.TimeServer" />
-      <module name="netty-len2" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.phei.netty.basic.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -514,19 +473,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="Application.TimeServer" />
       <item itemvalue="Application.TimeServer (1)" />
       <item itemvalue="Application.TimeServer (2)" />
       <item itemvalue="Application.TestUserInfo" />
       <item itemvalue="Application.PerformTestUserInfo" />
+      <item itemvalue="Application.HttpFileServer" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.HttpFileServer" />
         <item itemvalue="Application.PerformTestUserInfo" />
         <item itemvalue="Application.TestUserInfo" />
         <item itemvalue="Application.TimeServer (2)" />
         <item itemvalue="Application.TimeServer (1)" />
-        <item itemvalue="Application.TimeServer" />
       </list>
     </recent_temporary>
   </component>
@@ -545,31 +504,33 @@
       <workItem from="1530342410044" duration="2829000" />
       <workItem from="1530516683791" duration="11072000" />
       <workItem from="1530583166429" duration="8335000" />
-      <workItem from="1530691141864" duration="2497000" />
+      <workItem from="1530691141864" duration="4550000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25268000" />
+    <option name="totallyTimeSpent" value="27321000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32848486" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" weight="0.14449213" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3283582" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3272727" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49950248" visible="true" weight="0.24749643" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49818182" visible="true" weight="0.2932761" />
       <window_info anchor="bottom" id="Statistic" order="7" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info id="Structure" order="1" sideWeight="0.5004975" side_tool="true" weight="0.23908414" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" id="Structure" order="1" sideWeight="0.5018182" side_tool="true" visible="true" weight="0.2932761" />
       <window_info id="UI Designer" order="2" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.33454546" />
@@ -579,8 +540,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32848486" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -633,32 +592,17 @@
           <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/websocket/server/WebSocketServerHandler.java</url>
+          <line>118</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/frame/correct/TimeClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="35" column="7" lean-forward="true" selection-end-line="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/frame/correct/TimeClientHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/frame/correct/TimeServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="54" column="23" lean-forward="true" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/basic/TimeServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-125">
@@ -921,28 +865,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/fileServer/HttpFileServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1036">
-          <caret line="74" column="12" selection-start-line="74" selection-start-column="12" selection-end-line="74" selection-end-column="12" />
-          <folding>
-            <element signature="e#1757#2668#0" expanded="true" />
-            <element signature="e#2667#2668#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/fileServer/HttpFileServerHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3408">
-          <caret line="235" column="45" selection-start-line="235" selection-start-column="45" selection-end-line="235" selection-end-column="45" />
-          <folding>
-            <element signature="e#2989#2990#0" expanded="true" />
-            <element signature="e#3012#3013#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/client/HttpXmlClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="661">
@@ -1017,17 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/server/HttpXmlServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1012">
-          <caret line="73" selection-start-line="73" selection-end-line="73" />
-          <folding>
-            <element signature="e#1842#3041#0" expanded="true" />
-            <element signature="e#3040#3041#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/server/HttpXmlServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -1044,11 +955,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/netty/MessageType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="28" column="23" lean-forward="true" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+        <state relative-caret-position="391">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
           <folding>
             <element signature="e#1030#1031#0" expanded="true" />
             <element signature="e#1056#1057#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/fileServer/HttpFileServerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="225" column="25" lean-forward="true" selection-start-line="225" selection-start-column="25" selection-end-line="225" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/fileServer/HttpFileServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="e#2208#2907#0" expanded="true" />
+            <element signature="e#2906#2907#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/http/xml/server/HttpXmlServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="75" column="12" selection-start-line="75" selection-start-column="12" selection-end-line="75" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/netty/codec/MarshallingCodecFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/websocket/server/WebSocketServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+          <folding>
+            <element signature="e#1839#2303#0" expanded="true" />
+            <element signature="e#2302#2303#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/phei/netty/protocol/websocket/server/WebSocketServerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="65" column="13" lean-forward="true" selection-start-line="65" selection-start-column="13" selection-end-line="65" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#5102#0" expanded="true" />
           </folding>
         </state>
       </provider>
