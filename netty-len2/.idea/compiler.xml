@@ -9,5 +9,8 @@
         <module name="netty-len2" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="netty-len2" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -151,4 +151,25 @@ public class TestBuffer {
         ByteBuffer buf = ByteBuffer.allocateDirect(1024);
         System.out.println(buf.isDirect());
     }
+
+
+    @Test
+    public void f4() {
+
+        String str = "abcde";
+        ByteBuffer buf = ByteBuffer.allocate(100);
+
+        buf.put(str.getBytes());
+
+        //buf.flip();
+        System.out.println(buf.get(0));
+        System.out.println(buf.getShort(0));//前俩个字节组成的数值大小
+
+        byte[] dst = new byte[buf.limit()];
+        buf.get(dst, 0, 2);
+        System.out.println(new String(dst, 0, 2));
+
+        String s = Integer.toBinaryString(24930);
+        System.out.println(s);
+    }
 }
