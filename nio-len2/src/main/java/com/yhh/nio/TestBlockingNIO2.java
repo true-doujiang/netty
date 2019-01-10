@@ -56,10 +56,12 @@ public class TestBlockingNIO2 {
 	//服务端
 	@Test
 	public void server() throws IOException{
-		FileChannel outChannel = FileChannel.open(Paths.get("2.jpg"), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
+		FileChannel outChannel = FileChannel.open(Paths.get("2.jpg"),
+                StandardOpenOption.WRITE, StandardOpenOption.CREATE);
 
 		ServerSocketChannel ssChannel = ServerSocketChannel.open();
 		ssChannel.bind(new InetSocketAddress(9898));
+		// accept
 		SocketChannel sChannel = ssChannel.accept();
 		
 		ByteBuffer buf = ByteBuffer.allocate(1024);
