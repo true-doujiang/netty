@@ -12,13 +12,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Date;
 
-/**
- * author: youhh
- * date: 2018/6/28 上午1:08
- * description:
- */
 
-/*
+
+/**
+ * @author: youhh
+ * @date: 2018/6/28 上午1:08
+ * @description:
+ *
+ *
  * 一、使用 NIO 完成网络通信的三个核心：
  *
  * 1. 通道（Channel）：负责连接
@@ -76,22 +77,23 @@ public class TestBlockingNIO {
             //Thread.sleep(100);
             buf.clear();
         }
-        System.out.println("=======发送完毕 退出进程========");
+        System.out.println("=======client发送完毕 退出进程========");
         //4. 关闭通道
         inChannel.close();
         /**
          *
-         *  客户端socket通道不关闭，服务端就不知道数据有没有发送完毕，就在那傻傻的等着。
-         *  所以客户端一定要给服务端数据发送完毕的信号。
+         *  客户端socket通道不关闭，服务端就不知道数据有没有发送完毕，就在那傻傻的等着(TCP 连接一直连着)，
+         *  但是客户端进程发送完数据进程就退出了，socket异常关闭，服务端就会出现java.io.IOException: 远程主机强迫关闭了一个现有的连接。
          *
          *  **********看看JDK API文档，比啥都强***********
          *  调用关联套接字对象的 shutdownInput 方法来关闭某个通道的输入端将导致该通道上的后续读取操作返回 -1（指示流的末尾）。
          *  调用关联套接字对象的 shutdownOutput 方法来关闭通道的输出端将导致该通道上的后续写入操作抛出 ClosedChannelException。
          */
         //sChannel.socket().shutdownInput();
-        sChannel.shutdownOutput();  // server read() 返回-1
+        //sChannel.shutdownOutput();  // server read() 返回-1
         //sChannel.close();          // server read() 返回-1
         Thread.sleep(20000);
+        System.out.println("=======client 退出进程========");
     }
 
     //服务端
@@ -137,11 +139,10 @@ public class TestBlockingNIO {
         }
         System.out.println("========接收数据===len="+len+"=======");
 
-        System.out.println("=======接收完毕 退出进程========");
         //6. 关闭通道
         sChannel.close();
         outChannel.close();
         ssChannel.close();
-
+        System.out.println("=======server 退出进程========");
     }
 }

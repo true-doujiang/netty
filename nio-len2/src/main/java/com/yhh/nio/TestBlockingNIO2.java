@@ -12,9 +12,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 /**
- * author: youhh
- * date: 2018/6/28 上午1:08
- * description:
+ * @author: youhh
+ * @date: 2018/6/28 上午1:08
+ * @description:
  */
 public class TestBlockingNIO2 {
 
@@ -38,8 +38,14 @@ public class TestBlockingNIO2 {
 		}
 
 		//用这种方式告诉服务端，客户端数据已发送完毕
-		//否则服务端一直阻塞  server不知道client数据有没有发送完毕
+		//否则服务端一直阻塞  server不知道client数据有没有发送完毕, 但是也不可以在发送数据的
 		sChannel.shutdownOutput();
+
+		//java.nio.channels.ClosedChannelException
+//		buf.put("shutdownOutput()后就不可以在发送数据了".getBytes());
+//		buf.flip();
+//		sChannel.write(buf);
+
 		
 		//接收服务端的反馈
 		int len = 0; //实际读取到的字节数
