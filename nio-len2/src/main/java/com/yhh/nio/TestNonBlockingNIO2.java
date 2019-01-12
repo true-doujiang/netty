@@ -15,16 +15,17 @@ import java.util.Scanner;
 
 
 /**
- * author: youhh
- * date: 2018/6/27 下午6:06
- * description:
+ * @author: youhh
+ * @date: 2018/6/28 上午1:08
+ * @description:
+ *
  */
 public class TestNonBlockingNIO2 {
 
 
 
 	/**
-	 * 非阻塞式的
+	 * 非阻塞式的 UDP
 	 */
 
 

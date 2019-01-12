@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -14,13 +15,13 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 
-/**
- * author: youhh
- * date: 2018/6/28 上午1:08
- * description:
- */
 
-/*
+/**
+ * @author: youhh
+ * @date: 2018/6/28 上午1:08
+ * @description:
+ *
+ *
  * 一、使用 NIO 完成网络通信的三个核心：
  *
  * 1. 通道（Channel）：负责连接
@@ -64,95 +65,9 @@ public class TestNonBlockingNIO {
      * 非阻塞式的
      */
 
+    private static int clientCount;
 
     public static void main(String[] args) throws IOException {
-		//1. 获取通道
-		ServerSocketChannel ssChannel = ServerSocketChannel.open();
-		//2. 切换非阻塞模式
-		ssChannel.configureBlocking(false);
-		//3. 绑定连接
-		ssChannel.bind(new InetSocketAddress(9898));
-		//4. 获取选择器
-		Selector selector = Selector.open();
-		//5. 将通道注册到选择器上, 并且指定“监听接收事件”
-		ssChannel.register(selector, SelectionKey.OP_ACCEPT);
-
-		System.out.println("========init================");
-		//6. 轮询式的获取选择器上已经“准备就绪”的事件，不知道具体是哪个事件
-		while(selector.select() > 0){
-			System.out.println("========select================");
-			//7. 获取当前选择器中所有注册的“选择键(已就绪的监听事件)”
-			Iterator<SelectionKey> it = selector.selectedKeys().iterator();
-
-			while(it.hasNext()){
-				//8. 获取准备“就绪”的是事件
-				SelectionKey sk = it.next();
-				System.out.println("========hasNext================");
-				//9. 判断具体是什么事件准备就绪
-				if(sk.isAcceptable()){
-					System.out.println("========isAcceptable================");
-					//10. 若“接收就绪”，获取客户端连接
-					SocketChannel sChannel = ssChannel.accept();
-					//11. 客户端连接切换非阻塞模式
-					sChannel.configureBlocking(false);
-					//12. 将该通道注册到选择器上
-					sChannel.register(selector, SelectionKey.OP_READ);
-				}else if(sk.isReadable()){
-					System.out.println("========isReadable================");
-					//13. 获取当前选择器上“读就绪”状态的通道
-					SocketChannel sChannel = (SocketChannel) sk.channel();
-					//14. 读取数据
-					ByteBuffer buf = ByteBuffer.allocate(1024);
-
-					int len = 0;
-					while((len = sChannel.read(buf)) > 0 ){
-						buf.flip();
-						System.out.println(new String(buf.array(), 0, len));
-						buf.clear();
-					}
-				}
-				//15. 取消选择键 SelectionKey
-				it.remove();
-			}
-		}
-    }
-
-    //客户端
-    @Test
-    public void client() throws IOException {
-
-        //新创建的SocketChannel虽已打开却是未连接的。在一个未连接的SocketChannel对象上尝试一个I/O操作会导致NotYetConnectedException异常
-        //Exception in thread "main" java.nio.channels.NotYetConnectedException
-        //SocketChannel sChannel = SocketChannel.open();
-
-        //1. 获取通道
-        SocketChannel sChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 9898));
-
-        //2. 切换非阻塞模式
-        sChannel.configureBlocking(false);
-        //3. 分配指定大小的缓冲区
-        ByteBuffer buf = ByteBuffer.allocate(1024);
-
-        //4. 发送数据给服务端
-        Scanner scan = new Scanner(System.in);
-
-        while (scan.hasNext()) {
-            String str = scan.next();
-            //JDK1.8出了一套全新的dateAPI没用成
-            buf.put((new Date().toString() + "\n" + str).getBytes());
-            buf.flip();
-            sChannel.write(buf);
-            buf.clear();
-        }
-
-        //5. 关闭通道
-        sChannel.close();
-    }
-
-    //服务端
-    @Test
-    public void server() throws IOException, InterruptedException {
-        System.out.println(Thread.currentThread().getName());
         //1. 获取通道
         ServerSocketChannel ssChannel = ServerSocketChannel.open();
         //2. 切换非阻塞模式
@@ -183,12 +98,25 @@ public class TestNonBlockingNIO {
                     System.out.println(Thread.currentThread().getName() + "========isAcceptable================");
                     //10. 若“接收就绪”，获取客户端连接
                     SocketChannel sChannel = ssChannel.accept();
+                    Socket socket = sChannel.socket();
+
+                    // 这种方式也可以获取到
+                    //ServerSocketChannel serverSocketChannel = (ServerSocketChannel) sk.channel();
+                    //SocketChannel socketChannel = serverSocketChannel.accept();
+                    //Socket socket = socketChannel.socket();
+
                     //11. 客户端连接切换非阻塞模式
                     sChannel.configureBlocking(false);
-                    System.out.println("isAcceptable的: " + sChannel);
+                    System.out.println(Thread.currentThread().getName() + "=====" + "isAcceptable的: " + sChannel);
 
                     //12. 将该通道注册到选择器上
                     sChannel.register(selector, SelectionKey.OP_READ);
+                    // 有客户端进来
+                    clientCount++;
+                    sk.attach("第 " + clientCount + " 个客户端 [" + socket.getRemoteSocketAddress() + "]: ");
+                    System.out.println(Thread.currentThread().getName() + "========isAcceptable remove================");
+                    //15. 取消选择键 SelectionKey
+                    it.remove();
                 } else if (sk.isReadable()) {
                     System.out.println(Thread.currentThread().getName() + "========isReadable================");
                     //13. 获取当前选择器上“读就绪”状态的通道.  完全可以把这个SocketChannel扔给线程池去处理。
@@ -198,21 +126,123 @@ public class TestNonBlockingNIO {
                     //14. 读取数据
                     ByteBuffer buf = ByteBuffer.allocate(1024);
 
-                    int len = 0;
-                    while ((len = sChannel.read(buf)) > 0) {
-                        buf.flip();
-                        //Thread.sleep(1000);  //
-                        System.out.println(new String(buf.array(), 0, len));
-                        buf.clear();
+                    try {
+                        /**
+                         * 直接关闭客户端进程 read() 抛异常
+                         */
+                        int len = 0;
+                        while ((len = sChannel.read(buf)) > 0) {
+                            buf.flip();
+                            //Thread.sleep(1000);  //
+                            System.out.println("len=" + len + " : " + new String(buf.array(), 0, len));
+                            buf.clear();
+                        }
+
+                        /**
+                         * server和client已建立链接，此时我把客户端网线拔了，服务端read()=0进入这里，
+                         * 之后再把网线插上用的还是原来的socket，直接就能发数据，而且每次再发数据，都会带结束标记，也就是都会len=0
+                         * 【网线恢复后并没有重写连接，用的还是原来的socket】
+                         */
+                        if (len == 0) {
+                            System.out.println("客户端本次发送结束? 目前还不知道怎么能走到这里TODO len=" + len);
+                        }
+
+                        /**
+                         *   -1在网络io中就是socket关闭的含义  客户端正常调用close() 方法这里收到-1，
+                         *   但是如果是直接关闭进程，则会read()异常，进入try-catch
+                         */
+                        if (len == -1) {
+                            System.out.println(Thread.currentThread().getName() + "=====" + sk.attachment() +" read finished. close socketChannel. ");
+                            System.out.println(Thread.currentThread().getName() + "========SocketChannel关闭=========");
+                            sChannel.close();
+                        }
+
+                        //回写数据
+                        ByteBuffer outBuffer = ByteBuffer.wrap("hao de".getBytes());
+                        sChannel.write(outBuffer);// 将消息回送给客户端
+
+                        System.out.println(Thread.currentThread().getName() + "========isReadable remove================");
+                        //15. 取消选择键 SelectionKey
+                        it.remove();
+                    } catch (IOException e) {
+                        // 如果read抛出异常，表示连接异常中断，需要关闭 socketChannel
+                        e.printStackTrace();
+                        System.out.println(Thread.currentThread().getName() + "========异常  isReadable remove================");
+                        //15. 取消选择键 SelectionKey
+                        it.remove();
+                        System.out.println(Thread.currentThread().getName() + "=====" + sk.attachment() +" read抛出异常. close socketChannel = " + sChannel);
+                        sChannel.close();
+                        clientCount--;
                     }
                 }
+//                else if (sk.isWritable()) {
+//
+//                    SocketChannel sChannel = (SocketChannel) sk.channel();
+//                    ByteBuffer buf = ByteBuffer.allocate(1024);
+//                    //发送反馈给客户端
+//                    buf.put("服务端接收数据成功".getBytes());
+//                    buf.flip();
+//                    sChannel.write(buf);
+//                }
 
-                System.out.println(Thread.currentThread().getName() + "========remove================");
-                //15. 取消选择键 SelectionKey
-                it.remove();
+                // 以前remove()同一放在这里
+
             }
         }//select()
 
         System.out.println(Thread.currentThread().getName() + "========服务端关闭================");
+    }
+
+    //客户端
+    @Test
+    public void client() throws IOException {
+
+        //新创建的SocketChannel虽已打开却是未连接的。在一个未连接的SocketChannel对象上尝试一个I/O操作会导致NotYetConnectedException异常
+        //Exception in thread "main" java.nio.channels.NotYetConnectedException
+        //SocketChannel sChannel = SocketChannel.open();
+
+        //1. 获取通道 127.0.0.1
+        SocketChannel sChannel = SocketChannel.open(new InetSocketAddress("39.106.63.228", 9898));
+
+        //2. 切换非阻塞模式
+        sChannel.configureBlocking(false);
+        //3. 分配指定大小的缓冲区
+        ByteBuffer buf = ByteBuffer.allocate(1024);
+
+        //4. 发送数据给服务端
+        Scanner scan = new Scanner(System.in);
+
+        while (scan.hasNext()) {
+            String str = scan.next();
+            if ("close".equals(str)) {
+                break;
+            }
+            buf.put((new Date().toLocaleString() + "\n" + str).getBytes());
+            buf.flip();
+            sChannel.write(buf);
+            buf.clear();
+
+
+
+//            ByteBuffer buffer = ByteBuffer.allocate(1024);
+//            int len = 0;
+//            while ((len = sChannel.read(buffer)) > 0) {
+//                buffer.flip();
+//                while (buffer.hasRemaining()) {
+//                    System.out.print((char) buffer.get());
+//                }
+//                buffer.clear();
+//            }
+
+        }
+
+        //5. 关闭通道
+        sChannel.close();
+    }
+
+    //服务端
+    @Test
+    public void server() throws IOException, InterruptedException {
+
     }
 }
