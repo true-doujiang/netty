@@ -83,6 +83,12 @@ public class TestNonBlockingNIO {
         SelectionKey key = ssChannel.register(selector, SelectionKey.OP_ACCEPT);
         System.out.println("SelectionKey= " + key + " interestOps() = " + key.interestOps());
 
+        /**
+         * 当前有selector.select()阻塞，就直接返回，
+         * 当前没有selector.select()阻塞，则下次谁调用selector.select()也不用阻塞，直接返回
+         */
+        selector.wakeup();
+
         int count = 0;
         //6. 轮询式的获取选择器上已经“准备就绪”的事件，不知道具体是哪个事件
         while ((count = selector.select()) > 0) {
@@ -99,11 +105,7 @@ public class TestNonBlockingNIO {
                 //9. 判断具体是什么事件准备就绪
                 if (sk.isAcceptable()) {
                     System.out.println(Thread.currentThread().getName() + "----------Acceptable事件 ------");
-                    /**
-                     * 每次Acceptable事件使用的SelectionKey都是ssChannel.register(....) 返回的那个
-                     *
-                     * OP_ACCEPT 16
-                     */
+
                     System.out.println("while +++++ SelectionKey= " + sk + " interestOps() = " + sk.interestOps());
 
                     //10. 若“连接就绪”，获取客户端连接
@@ -119,8 +121,27 @@ public class TestNonBlockingNIO {
                     sChannel.configureBlocking(false);
                     System.out.println(Thread.currentThread().getName() + "=====" + "Acceptable 事件的SocketChannel: " + sChannel);
 
-                    //12. 将该通道注册到选择器上
-                    sChannel.register(selector, SelectionKey.OP_READ);
+                    /**
+                     * 每次Acceptable事件使用的SelectionKey都是ssChannel.register(....) 返回的那个
+                     *
+                     * OP_ACCEPT 16
+                     */
+                    System.out.println("while +++++ SelectionKey= " + sk + "  1 --> SelectionKey.interestOps() = " + key.interestOps());
+                    /**
+                     * 12. 将该通道注册到选择器上
+                     *  也可以在这里注册SelectionKey.OP_WRITE事件
+                     *  [SelectionKey key1 = sChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);]，
+                     *  检测IO缓冲区是否有空间，有空间sk.isWritable() 返回true。
+                     *
+                     *  一般IO缓存区都是可用的，没必要注册该事件， 注册了的话，会不停的触发该事件，烦死。
+                      */
+                    SelectionKey key1 = sChannel.register(selector, SelectionKey.OP_READ);
+                    System.out.println("while +++++ SelectionKey= " + sk + "  2 --> SelectionKey.interestOps() = " + sk.interestOps());
+                    /**
+                     *  这个SelectionKey是新的
+                     */
+                    System.out.println("while +++++ SelectionKey= " + key1 + "  3 --> SelectionKey.interestOps() = " + key1.interestOps());
+
                     // 有客户端进来
                     clientCount++;
                     String request = "第 " + clientCount + " 个客户端 [" + socket.getRemoteSocketAddress() + "]: ";
@@ -134,11 +155,11 @@ public class TestNonBlockingNIO {
 
                     System.out.println(Thread.currentThread().getName() + "---------- Readable事件 ------");
                     /**
-                     * 每次SelectionKey 不是同一个
+                     * 这里的SelectionKey 是Acceptable 事件中对SocketChannel注册OP_READ事件返回的
                      *
                      * OP_READ 1
                      */
-                    System.out.println("while +++++ SelectionKey= " + sk + " interestOps() = " + sk.interestOps()); // 8
+                    System.out.println("while +++++ SelectionKey= " + sk + " interestOps() = " + sk.interestOps()); // 1
 
                     //13. 获取当前选择器上“读就绪”状态的通道.  完全可以把这个SocketChannel扔给线程池去处理。
                     SocketChannel sChannel = (SocketChannel) sk.channel();
@@ -207,8 +228,13 @@ public class TestNonBlockingNIO {
                         clientCount--;
                     }
                 } else if (sk.isWritable() && sk.isValid()) {
+                    /**
+                     * 想触发 Writable 事件  需要在 Acceptable事件 对获取到的 [SocketChannel sChannel = ssChannel.accept();] 注册Writable 事件
+                     *
+                     * 触发 Writable 事件 说明IO缓冲区有空间，可以往客户端发送数据了，一般IO缓存区都是可用的，没必要注册该事件， 注册了的话，会不停的触发该事件，烦死。
+                     */
                     System.out.println(Thread.currentThread().getName() + "---------- Writable 事件 ------");
-                    System.out.println("while +++++ SelectionKey= " + sk + " interestOps() = " + sk.interestOps()); // 8
+                    System.out.println("while +++++ SelectionKey= " + sk + " interestOps() = " + sk.interestOps()); //
 
                     /**
                      * sk.isValid() 键在创建时是有效的，并在被取消、其通道已关闭或者其选择器已关闭之前保持有效。
