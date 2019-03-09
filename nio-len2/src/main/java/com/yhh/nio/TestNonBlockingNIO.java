@@ -75,24 +75,27 @@ public class TestNonBlockingNIO {
 
         //2. 切换非阻塞模式
         ssChannel.configureBlocking(false);
-        //3. 绑定连接
+        //3. 绑定连接   使用哪种方式 netty4中还专门做了判断
         ssChannel.bind(new InetSocketAddress(9898));
+        //ssChannel.socket().bind(new InetSocketAddress(9898));
+
         //4. 获取选择器
         Selector selector = Selector.open();
         //5. 将通道注册到选择器上, 并且指定“监听接收事件”
-        SelectionKey key = ssChannel.register(selector, SelectionKey.OP_ACCEPT);
+        String accatchObj = "NioServerSocketChannel";
+        SelectionKey key = ssChannel.register(selector, SelectionKey.OP_ACCEPT, accatchObj);
         System.out.println("SelectionKey= " + key + " interestOps() = " + key.interestOps());
 
         /**
          * 当前有selector.select()阻塞，就直接返回，
          * 当前没有selector.select()阻塞，则下次谁调用selector.select()也不用阻塞，直接返回
          */
-        selector.wakeup();
+        //selector.wakeup();
 
         int count = 0;
         //6. 轮询式的获取选择器上已经“准备就绪”的事件，不知道具体是哪个事件
         while ((count = selector.select()) > 0) {
-            System.out.println(Thread.currentThread().getName() + "========select===== count = " + count);
+            System.out.println("========selector.select()= " + count);
 
             //7. 获取当前选择器中所有注册的“选择键(已就绪的监听事件)”
             Iterator<SelectionKey> it = selector.selectedKeys().iterator();
@@ -101,10 +104,13 @@ public class TestNonBlockingNIO {
                 //8. 获取准备“就绪”的是事件
                 SelectionKey sk = it.next();
 
+                Object attachObj = sk.attachment();
+                System.out.println("SelectionKey的attachment= " + attachObj);
+
 
                 //9. 判断具体是什么事件准备就绪
                 if (sk.isAcceptable()) {
-                    System.out.println(Thread.currentThread().getName() + "----------Acceptable事件 ------");
+                    System.out.println("----------Acceptable事件 ------");
 
                     System.out.println("while +++++ SelectionKey= " + sk + " interestOps() = " + sk.interestOps());
 
@@ -119,7 +125,7 @@ public class TestNonBlockingNIO {
 
                     //11. 客户端连接切换非阻塞模式
                     sChannel.configureBlocking(false);
-                    System.out.println(Thread.currentThread().getName() + "=====" + "Acceptable 事件的SocketChannel: " + sChannel);
+                    System.out.println("=====" + "Acceptable 事件的SocketChannel: " + sChannel);
 
                     /**
                      * 每次Acceptable事件使用的SelectionKey都是ssChannel.register(....) 返回的那个
@@ -145,15 +151,15 @@ public class TestNonBlockingNIO {
                     // 有客户端进来
                     clientCount++;
                     String request = "第 " + clientCount + " 个客户端 [" + socket.getRemoteSocketAddress() + "]: ";
-                    System.out.println(request);
-                    sk.attach(request);
+                    System.out.println(request + " 请求进入");
+                    key1.attach(request);
 
                     //15. 取消选择键 SelectionKey
                     it.remove();
 
                 } else if (sk.isReadable()) {
 
-                    System.out.println(Thread.currentThread().getName() + "---------- Readable事件 ------");
+                    System.out.println("---------- Readable事件 ------");
                     /**
                      * 这里的SelectionKey 是Acceptable 事件中对SocketChannel注册OP_READ事件返回的
                      *
@@ -163,7 +169,7 @@ public class TestNonBlockingNIO {
 
                     //13. 获取当前选择器上“读就绪”状态的通道.  完全可以把这个SocketChannel扔给线程池去处理。
                     SocketChannel sChannel = (SocketChannel) sk.channel();
-                    System.out.println(Thread.currentThread().getName() + "=====" + "Readable事件的 SocketChannel: " + sChannel);
+                    System.out.println("=====" + "Readable事件的 SocketChannel: " + sChannel);
 
                     //14. 读取数据
                     ByteBuffer buf = ByteBuffer.allocate(1024);
@@ -194,8 +200,8 @@ public class TestNonBlockingNIO {
                          *   但是如果是直接关闭进程，则会read()异常，进入try-catch
                          */
                         if (len == -1) {
-                            System.out.println(Thread.currentThread().getName() + "==== attachment= " + sk.attachment() +" read finished. close socketChannel. ");
-                            System.out.println(Thread.currentThread().getName() + "===== read() = -1 正常 close socketChannel = " + sChannel);
+                            System.out.println(sk.attachment() + " 断开连接 close socketChannel. ");
+                            //System.out.println("==== read() = -1 正常 close socketChannel = " + sChannel);
                             // 关闭socket
                             sChannel.close();
                         }
@@ -205,7 +211,7 @@ public class TestNonBlockingNIO {
                          * https://blog.csdn.net/github_34606293/article/details/78201154
                          */
                         if (sChannel.isConnected() && !sChannel.socket().isClosed()) {
-                            System.out.println(Thread.currentThread().getName() + "===== 回写数据 [hao de] ");
+                            System.out.println("===== 回写数据 [hao de] ");
                             //回写数据  将消息回送给客户端
                             ByteBuffer outBuffer = ByteBuffer.wrap("hao de".getBytes());
                             sChannel.write(outBuffer);
@@ -221,7 +227,7 @@ public class TestNonBlockingNIO {
                         //15. 取消选择键 SelectionKey
                         it.remove();
 
-                        System.out.println(Thread.currentThread().getName() + "===== attachment= " + sk.attachment() +" read抛出异常. close socketChannel = " + sChannel);
+                        System.out.println("===== attachment= " + sk.attachment() +" read抛出异常. close socketChannel = " + sChannel);
 
                         // 关闭socket
                         sChannel.close();
@@ -233,14 +239,14 @@ public class TestNonBlockingNIO {
                      *
                      * 触发 Writable 事件 说明IO缓冲区有空间，可以往客户端发送数据了，一般IO缓存区都是可用的，没必要注册该事件， 注册了的话，会不停的触发该事件，烦死。
                      */
-                    System.out.println(Thread.currentThread().getName() + "---------- Writable 事件 ------");
+                    System.out.println("---------- Writable 事件 ------");
                     System.out.println("while +++++ SelectionKey= " + sk + " interestOps() = " + sk.interestOps()); //
 
                     /**
                      * sk.isValid() 键在创建时是有效的，并在被取消、其通道已关闭或者其选择器已关闭之前保持有效。
                      */
                     SocketChannel sChannel = (SocketChannel) sk.channel();
-                    System.out.println(Thread.currentThread().getName() + "=====" + "Writable 事件的 SocketChannel: " + sChannel);
+                    System.out.println("=====" + "Writable 事件的 SocketChannel: " + sChannel);
 
                     ByteBuffer outBuffer = ByteBuffer.wrap("服务端接收数据成功".getBytes());
                     sChannel.write(outBuffer);
@@ -254,7 +260,7 @@ public class TestNonBlockingNIO {
             }
         }//select()
 
-        System.out.println(Thread.currentThread().getName() + "========服务端关闭================");
+        System.out.println("========服务端关闭================");
     }
 
     //客户端

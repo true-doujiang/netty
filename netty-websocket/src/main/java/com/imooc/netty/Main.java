@@ -22,10 +22,12 @@ public class Main {
 			b.group(bossGroup, workGroup);
 			b.channel(NioServerSocketChannel.class);
 			b.childHandler(new MyWebSocketChannelHandler());
+
 			System.out.println("服务端开启等待客户端连接....");
+
 			Channel ch = b.bind(8888).sync().channel();
 			ch.closeFuture().sync();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
