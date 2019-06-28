@@ -7,6 +7,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.AttributeKey;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
@@ -74,6 +75,17 @@ public final class Server {
         Selector selector = Selector.open();
         Set<SelectionKey> selectionKeys = selector.selectedKeys();
 
+    }
 
+    @Test
+    public void test1()  {
+        ThreadGroup threadGroup = Thread.currentThread().getThreadGroup();
+        System.out.println(threadGroup);
+
+        SecurityManager securityManager = System.getSecurityManager();
+        System.out.println(securityManager);
+
+        ThreadGroup threadGroup1 = System.getSecurityManager().getThreadGroup();
+        System.out.println(threadGroup1);
     }
 }

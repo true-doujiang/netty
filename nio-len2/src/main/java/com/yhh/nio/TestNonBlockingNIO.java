@@ -10,6 +10,8 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.channels.spi.AbstractSelector;
+import java.nio.channels.spi.SelectorProvider;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -69,7 +71,7 @@ public class TestNonBlockingNIO {
     private static int clientCount;
 
     public static void main(String[] args) throws IOException {
-        //1. 获取通道
+        //1. 获取通道 ServerSocketChannelImpl
         ServerSocketChannel ssChannel = ServerSocketChannel.open();
         System.out.println("SocketChannel.validOps() = " + ssChannel.validOps()); //
 
@@ -79,13 +81,19 @@ public class TestNonBlockingNIO {
         ssChannel.bind(new InetSocketAddress(9898));
         //ssChannel.socket().bind(new InetSocketAddress(9898));
 
-        //4. 获取选择器
+        //4. 获取选择器 WindowsSelectorImpl
         Selector selector = Selector.open();
+
         //5. 将通道注册到选择器上, 并且指定“监听接收事件”
         String accatchObj = "NioServerSocketChannel";
         SelectionKey key = ssChannel.register(selector, SelectionKey.OP_ACCEPT, accatchObj);
         System.out.println("SelectionKey= " + key + " interestOps() = " + key.interestOps());
 
+        Selector selector1 = key.selector();
+        System.out.println(selector == selector1); //true
+        //底册也是这么获取的
+        AbstractSelector selector2 = SelectorProvider.provider().openSelector();
+        System.out.println(selector2==selector);  //true
         /**
          * 当前有selector.select()阻塞，就直接返回，
          * 当前没有selector.select()阻塞，则下次谁调用selector.select()也不用阻塞，直接返回
@@ -204,6 +212,8 @@ public class TestNonBlockingNIO {
                             //System.out.println("==== read() = -1 正常 close socketChannel = " + sChannel);
                             // 关闭socket
                             sChannel.close();
+                            //sk.cancel();
+
                         }
 
                         /**
