@@ -73,7 +73,7 @@ public class TestNonBlockingNIO {
     public static void main(String[] args) throws IOException {
         //1. 获取通道 ServerSocketChannelImpl
         ServerSocketChannel ssChannel = ServerSocketChannel.open();
-        System.out.println("SocketChannel.validOps() = " + ssChannel.validOps()); //
+        System.out.println("SocketChannel.validOps() = " + ssChannel.validOps()); //16
 
         //2. 切换非阻塞模式
         ssChannel.configureBlocking(false);
