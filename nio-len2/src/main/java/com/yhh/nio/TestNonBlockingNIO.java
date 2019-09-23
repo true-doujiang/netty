@@ -83,6 +83,7 @@ public class TestNonBlockingNIO {
 
         //4. 获取选择器 WindowsSelectorImpl
         Selector selector = Selector.open();
+        //selector.close();
 
         //5. 将通道注册到选择器上, 并且指定“监听接收事件”
         String accatchObj = "NioServerSocketChannel";
@@ -93,7 +94,7 @@ public class TestNonBlockingNIO {
         System.out.println(selector == selector1); //true
         //底册也是这么获取的
         AbstractSelector selector2 = SelectorProvider.provider().openSelector();
-        System.out.println(selector2==selector);  //true
+        System.out.println(selector2 == selector);  //false
         /**
          * 当前有selector.select()阻塞，就直接返回，
          * 当前没有selector.select()阻塞，则下次谁调用selector.select()也不用阻塞，直接返回
@@ -198,6 +199,7 @@ public class TestNonBlockingNIO {
                          * server和client已建立链接，此时我把客户端网线拔了，服务端read()=0进入这里，
                          * 之后再把网线插上用的还是原来的socket，直接就能发数据，而且每次再发数据，都会带结束标记，也就是都会len=0
                          * 【网线恢复后并没有重写连接，用的还是原来的socket】
+                         * len是不是等于0 也取决于是否上面的循环上一次是否把数据读取完了，读完了在下一次循环len=0
                          */
                         if (len == 0) {
                             System.out.println("客户端本次发送结束,但是有的client发送会进入，有的就不会呢 len=" + len);
@@ -210,12 +212,19 @@ public class TestNonBlockingNIO {
                         if (len == -1) {
                             System.out.println(sk.attachment() + " 断开连接 close socketChannel. ");
                             //System.out.println("==== read() = -1 正常 close socketChannel = " + sChannel);
-                            // 关闭socket
+
+                            //无论通过channel.close()还是通过selectionKey.cancel()来取消一个selectionKey ，
+                            // 这个selectionKey都会被立即添加到selector的 cancelled-key set 中，
+                            // 但是所关联的channel并没有立即被撤销登记，直到发生下次 selection operations, 这些channel才被从selector中撤销登记，
+                            // 与此同时这些Cancelled keys才会被从这个selector的所有selectionKey set（可能是_key set_、selected-key set、cancelled-key set）中移除，但是不会影响这些集合本身。
+
+                            // 关闭socket 这个方法不会进入下面的循环  并且Telnet客户端立刻感知到了，不知道是不是因为在一台机器的原因
                             sChannel.close();
+                            // 效果同上  这个方法会进入下面的循环
                             //sk.cancel();
-
                         }
-
+                        sChannel.close();
+                        //sk.cancel();
                         /**
                          * 如果客户端已经关闭链接你还写就会异常 java.nio.channels.ClosedChannelException
                          * https://blog.csdn.net/github_34606293/article/details/78201154
