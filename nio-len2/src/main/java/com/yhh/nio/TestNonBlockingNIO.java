@@ -223,6 +223,7 @@ public class TestNonBlockingNIO {
                             // 效果同上  这个方法会进入下面的循环
                             //sk.cancel();
                         }
+                        // 我这里关闭了 客户端并没有立即断开 不知道TCP是否已断开，感觉TCP并美原油断开连接
                         sChannel.close();
                         //sk.cancel();
                         /**
